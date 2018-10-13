@@ -19,6 +19,7 @@
 
 $web-font-path: "https://fonts.googleapis.com/css?family=Montserrat" !default;
 @import url($web-font-path);
+$color-fondo: #e9ecef;
 
 // Navbar ======================================================================
 
@@ -389,5 +390,14 @@ legend {
   h5,
   h6 {
     color: inherit;
+  }
+}
+body {
+  background-color: $color-fondo;
+}
+.bg,
+.btn {
+  &-primary {
+    background-color: #00adb5 !important;
   }
 }
