@@ -20,7 +20,9 @@
 $web-font-path: "https://fonts.googleapis.com/css?family=Montserrat" !default;
 @import url($web-font-path);
 $color-fondo: #e9ecef;
-
+$color-secundario: #364f6b;
+$color-de-error: #fc5185;
+$color-test: #3fc1c9;
 // Navbar ======================================================================
 
 .navbar {
@@ -400,4 +402,19 @@ body {
   &-primary {
     background-color: #00adb5 !important;
   }
+}
+.no-link {
+  color: #fff;
+  text-decoration-style: none;
+}
+.f-in {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
 }

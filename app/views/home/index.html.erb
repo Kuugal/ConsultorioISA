@@ -1,12 +1,76 @@
+
 <div style="height: 91.5vh;">
+<% if !user_signed_in? %>
 <div class="jumbotron h-100" style="margin-bottom:0px;padding: 6rem 4rem;z-index:1;">
   <h1 class="display-4">Consultorio X</h1>
   <p class="lead">Sistema desarrollado con Ruby, Rails y Bootstrap.</p>
   <hr class="my-4">
   <p>Accede o registrate.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Registrarse</a>
+  <a class="btn btn-primary btn-lg" href="/users/sign_up" role="button">Registrarse</a>
+</div>
+<%else%>
+<br>
+<br>
+<div class="row justify-content-center" >
+
+<div class="col-5 align-self-center">
+<div class="card text-white bg-secondary" >
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Secondary card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+
+</div>
+<div class="col-6 offset-1 align-self-center">
+<div class="card bg-danger text-white" >
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Light card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+
 </div>
 </div>
+<br>
+<div class="row justify-content-center" >
+<br>
+<div class="col">
+<div class="card border-info" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body text-info">
+    <h5 class="card-title">Info card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</div>
+<div class="col">
+<div class="card border-light" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Light card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</div>
+<div class="col">
+<div class="card border-dark" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Dark card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</div>
+
+</div>
+<%end%>
+</div>
+
 <!--<div class="alert alert-dismissible alert-danger">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <strong>¡Alerta!</strong> <a href="#" class="alert-link">Esto no</a> funciona todavía.
