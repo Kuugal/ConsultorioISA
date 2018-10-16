@@ -34,6 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
 
       ## Extra
       t.string :name
+      t.boolean :is_medic, default: false
 
 
       t.timestamps null: false

@@ -22,7 +22,8 @@ gem 'webpacker'
 gem 'foreman'
 gem 'jquery-rails'
 gem 'devise'
-
+gem 'cancancan'
+gem 'rolify'
 gem 'bootstrap', '~> 4.1.3'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
