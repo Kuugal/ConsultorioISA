@@ -1,0 +1,13 @@
+
+Todo:
+  ☐ validar cita y redirigir `@index`
+      Validaciones:
+        No domingo
+        No ocupado
+        Hora laborable
+      Redirigir a Historial?:
+  ☐ continuar lo de doctores :V @started(18-10-27 14:46)
+  ✔ Arreglar lo de luxon @done(18-10-25 08:39)
+
+
+

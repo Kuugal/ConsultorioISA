@@ -1,97 +1,170 @@
-
 <div style="height: 91.5vh;">
-<% if !user_signed_in? %>
-<div class="jumbotron h-100" style="margin-bottom:0px;padding: 6rem 4rem;z-index:1;">
-  <h1 class="display-4">Consultorio X</h1>
-  <p class="lead">Sistema desarrollado con Ruby, Rails y Bootstrap.</p>
-  <hr class="my-4">
-  <p>Accede o registrate.</p>
-  <a class="btn btn-primary btn-lg" href="/users/sign_up" role="button">Registrarse</a>
-</div>
-<%else%>
-<br>
-<br>
-
-<% if !current_user.is_medic?%>
-
-<div class="row justify-content-center" >
-
-
-<div class="col-7">
-<div class="card border-light" >
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Secondary card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  <% if !user_signed_in? %>
+  <div class="jumbotron h-100" style="margin-bottom:0px;padding: 6rem 4rem;z-index:1;">
+    <h1 class="display-4">Consultorio X</h1>
+    <p class="lead">Sistema desarrollado con Ruby, Rails y Bootstrap.</p>
+    <hr class="my-4">
+    <p>Accede o registrate.</p>
+    <a class="btn btn-primary btn-lg" href="/users/sign_up" role="button">Registrarse</a>
   </div>
+  <%else%>
+  <br>
+  
+
+  <% if !current_user.is_medic?%>
+<br>
+  <div class="row justify-content-center" >
+
+
+    <div class="col-12">
+      <div class="card border-light">
+        <div class="card-header">Haz una cita</div>
+        <div class="card-body row">
+
+          <div class="col-8">
+            <h5 class="card-title">Seleccione el día de la cita</h5>
+            Fecha
+              <%= form_for :appointment, url: appointments_path do |f| %>
+              
+              <datetime
+                type="date"
+                v-model="dateEmpty"
+                value-zone="America/Mexico_City"
+                input-class="my-class form-control"
+                :format="{ YYYY,MM}"
+                :phrases="{ok: 'Continuar', cancel: 'Salir'}"  
+                :min-datetime="now"
+                :max-datetime="maxDate"
+                :week-start="1"
+                auto
+                name="appointment[dia]"
+                id="appointment_dia"
+              ></datetime>
+<small class="form-text text-muted description" slot="after">No hay citas los días domingo.</small>
+
+              <div v-if="fechaCita">
+              <br>Hora
+               <datetime
+                type="time"
+                v-model="timeEmpty"
+                input-class="my-class form-control"
+                :format="{ hour: 'numeric', minute: '2-digit'}"
+                :phrases="{ok: 'Continuar', cancel: 'Salir'}"
+                :hour-step="1"
+                :minute-step="30"                
+                use12-hour
+                auto
+                name="appointment[hora]"
+                id="appointment_hora"
+              ></datetime>
+<small class="form-text text-muted description" slot="after">El horario es
+de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 14:00hrs.</small>
+<div class="row">
+<div class="actions">
+<!--<%= f.text_field :procedimiento %>-->
+<input name="appointment[procedimiento]" id="appointment_procedimiento" type="hidden" value="Enfermedad mortal">
+<input name="appointment[paciente]" id="appointment_paciente" type="hidden" value="<%=current_user.name%>">
+  
+  </div></div>
+<div v-if="appoOk" class="col-2 float-right">
+<br>
+  <%= f.submit "Aceptar", class:"btn btn-primary" %>
 </div>
 </div>
 
-<div class="col-5">
-<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
+              <%end%>
+          </div>
+
+          <div class="col-4">
+            <div class="list-group">
+              <span href="#" class="list-group-item list-group-item-warning flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">Horarios no disponibles</h5>
+                  
+                </div>                
+                 <!-- <%- @appointments.each do |appointment| %>                    
+                  
+                    <div v-show="fechaCita"> # <%= appointment.dia %> -> <%= appointment.hora %>  <br></div>
+                     
+                  <% end %>
+                  -->
+
+
+                  <div v-for="item in t1" >
+                    <div class="list-group-item" v-show="item.dia.replace(/(\d{2})\/(\d{2})\/(\d{4})/,'$3-$2-$1')==dateEmpty.slice(0, 10)"># {{item.hora}}<br></div>
+                  </div>
+
+
+                
+              </span>
+              <a href="#" class="list-group-item list-group-item-success flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">List group item heading</h5>
+                  <small class="text-muted">3 days ago</small>
+                </div>
+               <%= content_tag :div, class: "appointments_class", id: "horariosId", data: {appointments: @appointments} do %>
+              
+                  <% end %>
+                <small class="text-muted">Donec id elit non mi porta.</small>
+              </a>
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small>Donec id elit non mi porta.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
+
+
+
+
+  </div>
+
+  <%else%>
+  
+  <div class="row justify-content-center" style="margin-top:0px;">
+
+
+    <div class="col-3">
+      <div class="card border-info" style="max-width: 18rem;">
+        <div class="card-header">Citas del día {{isoedDate}}</div>
+        <div class="card-body text-info">
+          <h5 class="card-title">Hoy:</h5>
+          <div v-for="item in t1" >
+                    <div class="list-group-item" @click="newConsulta(item)" v-if="item.dia==isoedDate">
+                    <a href="#">
+                    <h4 style="margin-bottom: 0px;"># {{item.hora}}</h4>
+                    &nbsp {{item.paciente}}<br></div>
+                    </a>
+                  </div>
+        </div>
+      </div>
     </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
-</div>
-</div>
+
+   
+    <div class="col-9">
+      <div class="card border-light">
+        <div class="card-header">Consulta</div>
+        <div class="card-body text-dark">
+          <h5 class="card-title">Datos de la cita</h5>
+          <p class="card-text" v-if="appoOk">{{'Nombre de paciente: ' + activeAppo.paciente + ', Procedimiento: ' + activeAppo.procedimiento + ', Hora de cita: ' + 
+          activeAppo.hora}}</p>
+          <h5 class="card-title">Historial</h5>
+          <p class="card-text"></p>
+          <h5 class="card-title">Procedimientos pendientes</h5>
+          <p class="card-text"></p>
+          <h5 class="card-title">Nuevo procedimiento</h5>
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
 
 
-</div>
-
-<%else%>
-<br>
-<div class="row justify-content-center" >
-
-
-<div class="col">
-<div class="card border-info" style="max-width: 18rem;">
-  <div class="card-header">Solo doctores1</div>
-  <div class="card-body text-info">
-    <h5 class="card-title">Info card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
   </div>
-</div>
-</div>
-
-<div class="col">
-<div class="card bg-secondary text-white" style="max-width: 18rem;">
-  <div class="card-header">Solo doctores2</div>
-  <div class="card-body">
-    <h5 class="card-title">Light card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-</div>
-
-<div class="col">
-<div class="card border-dark" style="max-width: 18rem;">
-  <div class="card-header">Solo doctores3</div>
-  <div class="card-body text-dark">
-    <h5 class="card-title">Dark card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-</div>
+  <%end%>
 
 
-</div>
-<%end%>
-
-
-<%end%>
+  <%end%>
 </div>
 
 <!--<div class="alert alert-dismissible alert-danger">

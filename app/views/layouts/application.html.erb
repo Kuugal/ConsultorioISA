@@ -1,79 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Consultorio X</title>
-    <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    
-    
+<head>
+  <title>Consultorio X</title>
+  <%= csrf_meta_tags %>
+<link rel="stylesheet" type="text/css" href="../../../node_modules/vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.min.css">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<link rel="stylesheet" href= '../../../node_modules/vue-datetime/dist/vue-datetime.min.css'></link>
 
-    <!--<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>-->
-    <%= javascript_pack_tag 'hello_vue' %>
-  </head>
 
-  <body>
+  <!--<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>-->
+  <%= javascript_pack_tag 'hello_vue' %>
+</head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="/">Consultorio X</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<body>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Citas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Historial Médico</a>
-      </li>
-     
-    </ul>
-    <div class="my-2 my-lg-0">
-  
-       <ul class="navbar-nav mr-auto">
-        <%if alert%>
-      <li class="nav-item">
-        <span class="nav-link"><kbd><%= alert %></kbd></span>
-      </li>
-      <%end%>
-      <%if notice%>
-      <li class="nav-item">
-        <span class="nav-link"><kbd><%= notice %></kbd></span>
-      </li>
-      <%end%>
-      <% if user_signed_in? %>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Consultorio X</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-       <li class="nav-item active">       
-        <span class="nav-link"><%= current_user.name %></span>        
-      </li>
-      
-      <li class="nav-item active">
-      <span class="nav-link">       
-        <%= link_to 'Salir', destroy_user_session_path, method: :delete, class:"text-white" %>
-        </span>
-      </li>
-      <% else %>
-      
-      <li class="nav-item active">
-        <a class="nav-link" href="/users/sign_in">Acceder </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/users/sign_up">Registrarse</a>
-      </li>      
-      <% end %>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <% if user_signed_in?%>
+        <% if !current_user.is_medic?%>        
+        <li class="nav-item">
+          <a class="nav-link" href="#">Historial Médico</a>
+        </li>
+        <%else%>        
+        <!--<li class="nav-item">
+          <a class="nav-link" href="#">Consultas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Historial Médico</a>
+        </li>-->
+        <%end%>
+        <%end%>
+
+      </ul>
+      <div class="my-2 my-lg-0">
+
+        <ul class="navbar-nav mr-auto">
+          <%if alert%>
+          <li class="nav-item">
+            <span class="nav-link"><kbd>
+                <%= alert %></kbd></span>
+          </li>
+          <%end%>
+          <%if notice%>
+          <li class="nav-item">
+            <span class="nav-link"><kbd>
+                <%= notice %></kbd></span>
+          </li>
+          <%end%>
+          <% if user_signed_in? %>
+
+          <li class="nav-item active">
+            <span class="nav-link">
+              <%= current_user.name %></span>
+          </li>
+
+          <li class="nav-item active">
+            <span class="nav-link">
+              <%= link_to 'Salir', destroy_user_session_path, method: :delete, class:"text-white" %>
+            </span>
+          </li>
+          <% else %>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/users/sign_in">Acceder </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/users/sign_up">Registrarse</a>
+          </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<div class="container-fluid">
+  <div class="container-fluid" id='hello'>
 
     <%= yield %>
-</div>
-  </body>
+  </div>
+  
+</body>
+
 </html>

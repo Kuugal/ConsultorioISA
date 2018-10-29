@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paciente: MyString
+  dia: 2018-10-22
+  hora: 2018-10-22 10:22:12
+  disponible: false
+  procedimiento: MyString
+
+two:
+  paciente: MyString
+  dia: 2018-10-22
+  hora: 2018-10-22 10:22:12
+  disponible: false
+  procedimiento: MyString

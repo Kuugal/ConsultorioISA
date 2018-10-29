@@ -34,14 +34,76 @@
 
 import Vue from "vue/dist/vue.esm";
 import App from "../app.vue";
+import Datetime from "vue-datetime";
+import axios from "axios-on-rails";
+// You need a specific loader for CSS files
+
+Vue.use(Datetime, axios);
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = new Vue({
     el: "#hello",
     data: {
-      message: "Can you say hello?"
+      message: "Can you say hello?",
+      t1: [],
+      activeAppo: [],
+      isoedDate: '',
+      modSunday: [0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5],
+      fechaCita: false,
+      appoOk: false,
+      maxDate: "2019-10-31T00:00:00.000-05:00",
+      dateEmpty: "",
+      timeEmpty: ""
     },
-    components: { App }
+    components: {
+      App
+    },
+    watch: {
+      dateEmpty: function () {
+        if (this.dateEmpty !== "") {
+          this.fechaCita = true;
+        }
+      },
+      timeEmpty: function () {
+        if (this.timeEmpty !== "") {
+          this.appoOk = true;
+        }
+      },
+      sunday: function () {
+
+      }
+    },
+    computed: {
+      now: function () {
+        return new Date().toISOString();
+      },
+
+      isoedD: function () {
+        this.isoedDate = new Date().toLocaleString();
+      }
+    },
+    created: function () {
+      this.verPac();
+      this.isoedD();
+    },
+    methods: {
+      verPac() {
+        let uri = "http://localhost:3000/citasAjax";
+        axios.get(uri).then(response => {
+          console.log(response.data);
+          this.t1 = response.data;
+        });
+      },
+      newConsulta(a) {
+        this.activeAppo = a;
+        this.appoOk = true;
+      },
+
+      isoedD: function () {
+        this.isoedDate = new Date().toLocaleString().slice(0, 10);
+      }
+    },
+    mounted: {}
   });
 });
 

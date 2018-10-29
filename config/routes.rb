@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'prueba', to: 'home#prueba'
+  get 'usuarios', to: 'users#index'
+  resources :appointments
+  get 'citasAjax', to:"home#citasAjax"
   root 'home#index'
       devise_for :users
       as :user do

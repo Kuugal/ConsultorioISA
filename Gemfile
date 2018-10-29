@@ -25,6 +25,9 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 gem 'bootstrap', '~> 4.1.3'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
+gem 'axios_rails'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

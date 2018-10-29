@@ -6,5 +6,37 @@
 <div id='hello'>
    {{message}}
    <app></app>
+   <datetime
+  type="datetime"
+  v-model="datetimeEmpty"
+  input-class="my-class form-control"
+  value-zone="America/New_York"
+  :format="{ year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }"
+  :phrases="{ok: 'Continuar', cancel: 'Salir'}"
+  :hour-step="1"
+  :minute-step="30"
+  :min-datetime="minDatetime"
+  :max-datetime="maxDatetime"
+  :week-start="7"
+  use12-hour
+  auto
+  ></datetime>
+   <datetime
+  type="datetime"
+  v-model="datetimeEmpty"
+  input-class="my-class form-control"
+  value-zone="America/New_York"
+  :format="{ year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }"
+  :phrases="{ok: 'Continuar', cancel: 'Salir'}"
+  :hour-step="1"
+  :minute-step="30"
+  :min-datetime="minDatetime"
+  :max-datetime="maxDatetime"
+  :week-start="7"
+  use12-hour
+  auto
+  ></datetime>
+  <label for="startDate" slot="before">Titulo</label>
+  <span class="description" slot="after">Descripcion</span></datetime>
  </div>
 </div>
