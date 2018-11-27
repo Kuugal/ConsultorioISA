@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paciente: MyString
+  procedmiento: MyString
+  pendiente: false
+
+two:
+  paciente: MyString
+  procedmiento: MyString
+  pendiente: false

@@ -1,7 +1,7 @@
 <div style="height: 91.5vh;">
   <% if !user_signed_in? %>
   <div class="jumbotron h-100" style="margin-bottom:0px;padding: 6rem 4rem;z-index:1;">
-    <h1 class="display-4">Consultorio X</h1>
+    <h1 class="display-4">Consultorio Dental</h1>
     <p class="lead">Sistema desarrollado con Ruby, Rails y Bootstrap.</p>
     <hr class="my-4">
     <p>Accede o registrate.</p>
@@ -9,11 +9,11 @@
   </div>
   <%else%>
   <br>
-  
+
 
   <% if !current_user.is_medic?%>
-<br>
-  <div class="row justify-content-center" >
+  <br>
+  <div class="row justify-content-center">
 
 
     <div class="col-12">
@@ -24,55 +24,36 @@
           <div class="col-8">
             <h5 class="card-title">Seleccione el día de la cita</h5>
             Fecha
-              <%= form_for :appointment, url: appointments_path do |f| %>
-              
-              <datetime
-                type="date"
-                v-model="dateEmpty"
-                value-zone="America/Mexico_City"
-                input-class="my-class form-control"
-                :format="{ YYYY,MM}"
-                :phrases="{ok: 'Continuar', cancel: 'Salir'}"  
-                :min-datetime="now"
-                :max-datetime="maxDate"
-                :week-start="1"
-                auto
-                name="appointment[dia]"
-                id="appointment_dia"
-              ></datetime>
-<small class="form-text text-muted description" slot="after">No hay citas los días domingo.</small>
+            <%= form_for :appointment, url: appointments_path do |f| %>
 
-              <div v-if="fechaCita">
+            <datetime type="date" v-model="dateEmpty" value-zone="America/Mexico_City" input-class="my-class form-control"
+              :format="dateFormat" :phrases="{ok: 'Continuar', cancel: 'Salir'}" :min-datetime="now" :max-datetime="maxDate"
+              :week-start="1" auto name="appointment[dia]" id="appointment_dia"></datetime>
+            <small class="form-text text-muted description" slot="after">No hay citas los días domingo.</small>
+
+            <div v-if="fechaCita">
               <br>Hora
-               <datetime
-                type="time"
-                v-model="timeEmpty"
-                input-class="my-class form-control"
-                :format="{ hour: 'numeric', minute: '2-digit'}"
-                :phrases="{ok: 'Continuar', cancel: 'Salir'}"
-                :hour-step="1"
-                :minute-step="30"                
-                use12-hour
-                auto
-                name="appointment[hora]"
-                id="appointment_hora"
-              ></datetime>
-<small class="form-text text-muted description" slot="after">El horario es
-de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 14:00hrs.</small>
-<div class="row">
-<div class="actions">
-<!--<%= f.text_field :procedimiento %>-->
-<input name="appointment[procedimiento]" id="appointment_procedimiento" type="hidden" value="Enfermedad mortal">
-<input name="appointment[paciente]" id="appointment_paciente" type="hidden" value="<%=current_user.name%>">
-  
-  </div></div>
-<div v-if="appoOk" class="col-2 float-right">
-<br>
-  <%= f.submit "Aceptar", class:"btn btn-primary" %>
-</div>
-</div>
+              <datetime type="time" v-model="timeEmpty" value-zone="America/Mexico_City" input-class="my-class form-control"
+                :format="timeFormat" :phrases="{ok: 'Continuar', cancel: 'Salir'}" :hour-step="1" :minute-step="30"
+                use12-hour auto name="appointment[hora]" id="appointment_hora"></datetime>
+              <small class="form-text text-muted description" slot="after">El horario es
+                de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 13:00hrs.</small>
+              <div class="row">
+                <div class="actions">
+                  <!--<%= f.text_field :procedimiento %>-->
+                  <input name="appointment[procedimiento]" id="appointment_procedimiento" type="hidden" value="Revisión general">
+                  <input name="appointment[disponible]" id="appointment_disponible" type="hidden" value="T">
+                  <input name="appointment[paciente]" id="appointment_paciente" type="hidden" value="<%=current_user.name%>">
 
-              <%end%>
+                </div>
+              </div>
+              <div v-if="appoOk" class="col-2 float-right">
+                <br>
+                <%= f.submit "Aceptar", class:"btn btn-primary" %>
+              </div>
+            </div>
+
+            <%end%>
           </div>
 
           <div class="col-4">
@@ -80,9 +61,9 @@ de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 14:00hrs.</small>
               <span href="#" class="list-group-item list-group-item-warning flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1">Horarios no disponibles</h5>
-                  
-                </div>                
-                 <!-- <%- @appointments.each do |appointment| %>                    
+
+                </div>
+                <!-- <%- @appointments.each do |appointment| %>                    
                   
                     <div v-show="fechaCita"> # <%= appointment.dia %> -> <%= appointment.hora %>  <br></div>
                      
@@ -90,24 +71,25 @@ de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 14:00hrs.</small>
                   -->
 
 
-                  <div v-for="item in t1" >
-                    <div class="list-group-item" v-show="item.dia.replace(/(\d{2})\/(\d{2})\/(\d{4})/,'$3-$2-$1')==dateEmpty.slice(0, 10)"># {{item.hora}}<br></div>
-                  </div>
+                <div v-for="item in t1">
+
+                  <div class="list-group-item" v-show="item.dia.replace(/(\d{2})\/(\d{2})\/(\d{4})/,'$3-$2-$1')==dateEmpty.slice(0, 10)">#
+                    {{item.hora}}<br></div>
+                </div>
 
 
-                
+
               </span>
               <a href="#" class="list-group-item list-group-item-success flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1">List group item heading</h5>
-                  <small class="text-muted">3 days ago</small>
-                </div>
-               <%= content_tag :div, class: "appointments_class", id: "horariosId", data: {appointments: @appointments} do %>
-              
-                  <% end %>
-                <small class="text-muted">Donec id elit non mi porta.</small>
+                   </div> <%=content_tag :div, class:
+                      "appointments_class" , id: "horariosId" , data: {appointments: @appointments} do %>
+
+                      <% end %>
+                  
               </a>
-              
+
             </div>
           </div>
 
@@ -121,7 +103,7 @@ de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 14:00hrs.</small>
   </div>
 
   <%else%>
-  
+
   <div class="row justify-content-center" style="margin-top:0px;">
 
 
@@ -130,34 +112,106 @@ de lunes a viernes de 9:00 a 18:00hrs y sábados de 9:00 a 14:00hrs.</small>
         <div class="card-header">Citas del día {{isoedDate}}</div>
         <div class="card-body text-info">
           <h5 class="card-title">Hoy:</h5>
-          <div v-for="item in t1" >
-                    <div class="list-group-item" @click="newConsulta(item)" v-if="item.dia==isoedDate">
-                    <a href="#">
-                    <h4 style="margin-bottom: 0px;"># {{item.hora}}</h4>
-                    &nbsp {{item.paciente}}<br></div>
-                    </a>
-                  </div>
+          <div v-for="item in t1">
+            <div class="list-group-item" @click="newConsulta(item)" v-if="item.dia==now.slice(0, 10)">
+              <a href="#" v-if="item.disponible && !aFinished">
+              
+                <h4 style="margin-bottom: 0px;"># {{item.hora}}</h4>
+                &nbsp {{item.paciente}}<br></div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="col-9">
+      <div class="card border-light">
+        <div class="card-header">Consulta</div>
+        <div class="card-body text-dark row">
+<div class="col-8">
+          <h5 class="card-title">Datos de la cita</h5>
+          <div class="card-text" v-if="appoOk">
+          <p> {{'Nombre de paciente: ' + activeAppo.paciente}} </p>
+          
+          <p v-if="t3.length<=1"> {{'Procedimiento: ' + activeAppo.procedimiento}} </p>
+          <p v-else> {{'Procedimiento: ' + t3[0].procedimiento}} </p>
+          <p> {{'Hora de cita: ' + activeAppo.hora}}</p></div>
+          
+          
+          <h5 class="card-title">Historial</h5>
+          <p class="card-text" v-if="appoOk">
+          <div v-for="item in t3">
+<div v-if="item.paciente==activeAppo.paciente && item.pendiente==false">
+<p>{{item.procedimiento}}</p>
+</div>
+          </div>
+          </p>
+          <h5 class="card-title">Procedimientos pendientes</h5>
+          <p class="card-text" v-if="appoOk"><div v-for="item in t3">
+          <div v-if="item.paciente==activeAppo.paciente && item.pendiente==true">
+<p>{{item.procedimiento}}</p>
+</div>
+          </div></p>
+</div>
+<div class="col-3 card">
+<%= image_tag("Cons12.png", class: "card-img-top") %>
+
+</div>
+          <div v-if="appoOk">
+            <%= form_for :consult, url: consults_path do |f| %>  
+            <br>
+            <div class="row no-gutters">
+              <div class="col-2">
+                <!--<%= f.submit "Nuevo procedimiento", class:"btn btn-primary" %>-->
+                <button type="button" class="btn btn-primary" @click="newProcedimientosM=true">
+                  Nuevo procedimiento
+                </button>
+              </div>
+<input name="consult[pendiente]" id="consult_pendiente" type="hidden" value="F">
+          <input name="consult[paciente]" id="consult_paciente" type="hidden" v-bind:value="activeAppo.paciente">
+          <input name="consult[procedimiento]" id="consult_procedimiento" type="hidden" v-bind:value="activeAppo.procedimiento">
+              <div class="col-2 offset-7">
+                <%= f.submit "Terminar consulta", class:"btn btn-danger" %>
+              </div>
+            </div>
+            <%end%>
+          </div>
+
+        </div>
+      </div>
+
+      <br>
+      <div class="card border-light" v-if="newProcedimientosM">
+        <div class="card-header">Nuevo procedimiento</div>
+        <div class="card-body text-dark">
+          <h6 class="card-title">Nombre</h6>
+          <p class="card-text">   
+          <%= form_for :consult, url: consults_path do |f| %>                 
+          <input name="consult[procedimiento]" id="consult_procedimiento" class="form-control">
+          <small class="form-text text-muted description" slot="after">Describe de forma específica que procedimiento es y a que area se aplica.</small>
+          <input name="consult[pendiente]" id="consult_pendiente" type="hidden" value="T">
+          <input name="consult[paciente]" id="consult_paciente" type="hidden" v-bind:value="activeAppo.paciente">
+          
+          </p>
+          <div class="row no-gutters">
+              <div class="col-2">
+                <%= f.submit "Aceptar", class:"btn btn-primary" %>
+                </div>
+                <div class="offset-2 col-2">
+                <button type="button" class="btn btn-secondary" @click="newProcedimientosM=false">
+                  Cancelar
+                </button>
+              </div>
+          </div>    
+          <%end%>
         </div>
       </div>
     </div>
 
-   
-    <div class="col-9">
-      <div class="card border-light">
-        <div class="card-header">Consulta</div>
-        <div class="card-body text-dark">
-          <h5 class="card-title">Datos de la cita</h5>
-          <p class="card-text" v-if="appoOk">{{'Nombre de paciente: ' + activeAppo.paciente + ', Procedimiento: ' + activeAppo.procedimiento + ', Hora de cita: ' + 
-          activeAppo.hora}}</p>
-          <h5 class="card-title">Historial</h5>
-          <p class="card-text"></p>
-          <h5 class="card-title">Procedimientos pendientes</h5>
-          <p class="card-text"></p>
-          <h5 class="card-title">Nuevo procedimiento</h5>
-          <p class="card-text"></p>
-        </div>
-      </div>
-    </div>
+    
+
 
 
   </div>

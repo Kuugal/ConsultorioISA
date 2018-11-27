@@ -1,0 +1,34 @@
+<div class="row justify-content-center">
+<div class="col-9">
+      <div class="card border-light">
+        <div class="card-header">Historial clínico</div>
+        <div class="card-body text-dark row">
+<div class="col-8">
+          
+          
+          <h5 class="card-title">Procedimientor realizados</h5>
+          <p class="card-text" >
+          <div v-for="item in t3">
+<div v-if="item.paciente=='<%=current_user.name%>' && item.pendiente==false">
+<p>{{item.procedimiento}}</p>
+</div>
+          </div>
+          </p>
+          <h5 class="card-title">Procedimientos pendientes</h5>
+          <p class="card-text" ><div v-for="item in t3">
+          <div v-if="item.paciente=='<%=current_user.name%>' && item.pendiente==true">
+<p>{{item.procedimiento}}</p>
+</div>
+          </div>
+          </p>
+</div>
+<div class="col-3 card">
+<%= image_tag("Cons12.png", class: "card-img-top") %>
+
+</div>
+
+
+        </div>
+      </div>
+    </div>
+    </div>

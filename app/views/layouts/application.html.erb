@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Consultorio X</title>
+  <title>Consultorio Dental</title>
   <%= csrf_meta_tags %>
 <link rel="stylesheet" type="text/css" href="../../../node_modules/vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -16,7 +16,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/">Consultorio X</a>
+    <a class="navbar-brand" href="/">Consultorio Dental</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
         <% if user_signed_in?%>
         <% if !current_user.is_medic?%>        
         <li class="nav-item">
-          <a class="nav-link" href="#">Historial Médico</a>
+          <a class="nav-link" href="/historial">Historial Médico</a>
         </li>
         <%else%>        
         <!--<li class="nav-item">

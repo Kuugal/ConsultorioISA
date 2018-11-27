@@ -1,13 +1,19 @@
 
 Todo:
-  ☐ validar cita y redirigir `@index`
+  ☐ validar cita FULL `proc?`
       Validaciones:
-        No domingo
-        No ocupado
-        Hora laborable
-      Redirigir a Historial?:
+        ✔ No domingo @done(18-10-31 00:44)
+        ✔ No ocupado `pasar la lista de items a proceso interno en vue` @done(18-11-12 18:05)
+        ✔ Hora laborable @done(18-10-31 09:54)
+      ✔ Redirigir a Historial @done(18-11-21 21:14)
+          ☐ Hacer vista historial
   ☐ continuar lo de doctores :V @started(18-10-27 14:46)
-  ✔ Arreglar lo de luxon @done(18-10-25 08:39)
+        ☐ Historial
+        ☐ Proc pendientes
+        ✔ Nuevo proc @done(18-11-21 21:12)
+        ☐ leer proc en vue y displayarlos
+  ☐ Optimizar vue.js
+      ✔ Arreglar lo de luxon @done(18-10-25 08:39)
 
 
 

@@ -10,6 +10,14 @@ class HomeController < ApplicationController
         @appointments = Appointment.all.order(:dia, hora: :desc)
         json_response(@appointments)
     end
+    def procAjax
+        @consults = Consult.all
+        json_response(@consults)
+    end
+
+    def historial
+
+    end
     
 
 end
